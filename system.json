@@ -2,7 +2,7 @@
   "id": "soulslike",
   "title": "Soulslike RPG",
   "description": "It's just like Dark Souls!",
-  "version": "0.0.3",
+  "version": "",
 
   "compatibility": {
     "minimum": 13,

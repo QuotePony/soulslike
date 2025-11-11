@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,11 +8,15 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const isProduction = process.env.NODE_ENV === "production";
+const packageJsonPath = path.resolve(__dirname, "package.json");
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+const packageVersion = packageJson.version;
 
 const stripDistPrefix = (value) => value.replace(/^dist\//u, "");
 
 const transformSystemManifest = (content) => {
   const manifest = JSON.parse(content.toString());
+  manifest.version = packageVersion;
 
   if (Array.isArray(manifest.esmodules)) {
     manifest.esmodules = manifest.esmodules.map(stripDistPrefix);
