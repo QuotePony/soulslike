@@ -13,7 +13,7 @@
         }
     ],
     "esmodules": [
-        "soulslike.js"
+        "dist/soulslike.js"
     ],
     "styles": [
         "soulslike.css"
