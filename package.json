@@ -1,31 +1,70 @@
 {
-  "name": "soulslike",
+  "id": "soulslike",
+  "title": "Soulslike RPG",
+  "description": "It's just like Dark Souls!",
   "version": "0.0.1",
-  "description": "Foundry VTT system for Soulslike RPG.",
-  "main": "dist/soulslike.js",
-  "scripts": {
-    "build": "node --max-old-space-size=8192 ./node_modules/typescript/bin/tsc --project tsconfig.json",
-    "build:watch": "node --max-old-space-size=8192 ./node_modules/typescript/bin/tsc --project tsconfig.json --watch",
-    "clean": "rimraf dist",
-    "prepack": "npm run build"
+
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/QuotePony/soulslike.git"
+
+  "authors": [
+    {
+      "name": "Quote"
+    }
+  ],
+
+  "esmodules": [
+    "dist/soulslike.js"
+  ],
+
+  "styles": [
+    "soulslike.css"
+  ],
+
+  "socket": false,
+
+  "grid": {
+    "distance": 1,
+    "units": "Meter"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/QuotePony/soulslike/issues"
+
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "posture",
+
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+
+  "packs": [],
+
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "npc": {},
+      "enemy": {}
+    },
+    "Item": {
+      "weapon": {},
+      "armor": {},
+      "spell": {},
+      "consumable": {},
+      "feature": {}
+    }
   },
-  "homepage": "https://github.com/QuotePony/soulslike#readme",
-  "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^13.346.0-beta.20250812191140",
-    "fvtt-types": "npm:@league-of-foundry-developers/foundry-vtt-types@^13.346.0-beta.20250812191140",
-    "rimraf": "^6.1.0",
-    "tslib": "^2.8.1",
-    "typescript": "^5.9.3"
-  }
+
+  "initiative": "1d20",
+
+  "relationships": {
+    "requires": []
+  },
+
+  "url": "https://github.com/QuotePony/soulslike",
+  "manifest": "https://github.com/QuotePony/soulslike/releases/download/latest/module.json",
+  "download": "https://github.com/QuotePony/soulslike/releases/download/latest/module.zip",
 }
