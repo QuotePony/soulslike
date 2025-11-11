@@ -20,7 +20,7 @@
   ],
 
   "styles": [
-    "soulslike.css"
+    "dist/soulslike.css"
   ],
 
   "socket": false,
