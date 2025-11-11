@@ -1,5 +1,6 @@
 {
   "id": "soulslike",
+  "type": "system",
   "title": "Soulslike RPG",
   "description": "It's just like Dark Souls!",
   "version": "",
