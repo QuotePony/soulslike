@@ -1,6 +1,6 @@
 {
   "name": "soulslike",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Foundry VTT system for Soulslike RPG.",
   "main": "dist/soulslike.js",
   "scripts": {
