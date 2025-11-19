@@ -38,15 +38,15 @@
   "documentTypes": {
     "Actor": {
       "character": {},
-      "npc": {},
-      "enemy": {}
+      "npc": {}
     },
     "Item": {
       "weapon": {},
       "armor": {},
-      "spell": {},
-      "consumable": {},
-      "feature": {}
+      "tool": {},
+      "ornament": {},
+      "ammunition": {},
+      "misc": {}
     }
   },
 

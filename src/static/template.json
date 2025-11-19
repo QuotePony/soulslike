@@ -16,25 +16,136 @@
             "Evasion": 0,
             "Strength": 0,
             "Dexterity": 0,
-            "Spells": 0,
-            "Incantations": 0,
+            "Intellect": 0,
+            "Faith": 0,
             "hands": {
                 "left": null,
                 "right": null
+            },
+            "shielding": 0,
+            "recurring_damage": {
+                "damage_type": "",
+                "amount": 0
+            },
+            "magic_uses": {
+                "physical": 0,
+                "intellect": 0,
+                "faith": 0
+            }
+        },
+        "NPC": {
+            "hp": {
+                "current": 10,
+                "min": 0,
+                "max": 10
+            },
+            "difficulty": "I",
+            "damage_roll": "d6",
+            "damage_bonus": 0,
+            "shielding": 0,
+            "recurring_damage": {
+                "damage_type": "",
+                "amount": 0
             }
         }
     },
     "Item": {
         "types": [
-            "Weapon"
+            "Weapon",
+            "Armor",
+            "Tool",
+            "Ornament",
+            "Misc"
         ],
         "Weapon": {
+            "name": "Weapon",
+            "weight": 1,
+            "value": 0,
             "tags": "",
             "description": "",
-            "damage_die": "d6",
+            "damage_roll": "d6",
             "damage_stat": "Strength",
-            "action1": "Action 1",
-            "action2": "Action 2"
+            "unique": false,
+            "action1": {
+                "name": "Action 1",
+                "stamina_cost": 1,
+                "damage_dice": 1,
+                "aoe": "",
+                "effect": "Effect.",
+                "reaction": false
+            },
+            "action2": {
+                "name": "Action 2",
+                "stamina_cost": 1,
+                "damage_dice": 1,
+                "aoe": "",
+                "effect": "Effect.",
+                "reaction": false
+            },
+            "action3": {
+                "name": "Action 3",
+                "stamina_cost": 1,
+                "damage_dice": 1,
+                "aoe": "",
+                "effect": "Effect.",
+                "reaction": false
+            }
+        },
+        "Armor": {
+            "name": "Armor",
+            "weight": 1,
+            "value": 0,
+            "tags": "",
+            "description": "",
+            "slot": ["Head", "Body", "Arms", "Legs"],
+            "armor_skill": {
+                "name": "",
+                "effect": ""
+            }
+        },
+        "Tool": {
+            "name": "Tool",
+            "weight": 1,
+            "value": 0,
+            "tags": "",
+            "description": "",
+            "limited": false,
+            "limited_uses": 1,
+            "damage_roll": "d6",
+            "damage_stat": "Strength",
+            "action": {
+                "name": "Action",
+                "stamina_cost": 1,
+                "damage_dice": 1,
+                "aoe": "",
+                "effect": "Effect.",
+                "reaction": false
+            }
+        },
+        "Ornament": {
+            "name": "Ornament",
+            "weight": 1,
+            "value": 0,
+            "tags": "",
+            "description": "",
+            "effect": ""
+        },
+        "Ammunition": {
+            "name": "Ammunition",
+            "weight": 1,
+            "value": 0,
+            "tags": "",
+            "description": "",
+            "ammo_type": "",
+            "current_amount": 0,
+            "max_amount": 0,
+            "effect": ""
+        },
+        "Misc": {
+            "name": "Misc",
+            "weight": 1,
+            "value": 0,
+            "description": ""
         }
     }
 }
