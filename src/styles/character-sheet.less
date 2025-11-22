@@ -16,6 +16,12 @@
     var(--sl-bg);
   padding: 14px;
   box-sizing: border-box;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   font-family: "Cormorant Garamond", "Palatino Linotype", "Book Antiqua", serif;
   letter-spacing: 0.02em;
 }
@@ -163,11 +169,24 @@
   letter-spacing: 0.08em;
 }
 
+.soulslike.sheet .sl-stat-split .sl-split {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.soulslike.sheet .sl-separator {
+  color: var(--sl-muted);
+}
+
 .soulslike.sheet .sl-shell {
   margin-top: 14px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: 8px;
 }
 
 .soulslike.sheet .sl-tabs,
