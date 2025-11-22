@@ -9,23 +9,31 @@
     <section class="tab" data-tab="tab1">
       <div class="sl-panel-grid">
         <section class="sl-panel">
-          <div class="sl-panel-title">Profile</div>
+          <div class="sl-panel-title">Resources</div>
           <div class="sl-field-grid two">
             <label class="sl-field">
-              <span class="sl-label">Class</span>
-              <input class="sl-input" type="text" name="system.class" value="{{system.class}}" placeholder="Drifter" />
+              <span class="sl-label">HP (Current)</span>
+              <input class="sl-input" type="number" name="system.hp.current" value="{{system.hp.current}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Covenant</span>
-              <input class="sl-input" type="text" name="system.covenant" value="{{system.covenant}}" placeholder="Oath of Embers" />
+              <span class="sl-label">HP (Min)</span>
+              <input class="sl-input" type="number" name="system.hp.min" value="{{system.hp.min}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Burden</span>
-              <input class="sl-input" type="text" name="system.burden" value="{{system.burden}}" placeholder="Crushing Debt" />
+              <span class="sl-label">Vitality</span>
+              <input class="sl-input" type="number" name="system.Vitality" value="{{system.Vitality}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Soul Memory</span>
-              <input class="sl-input" type="number" name="system.soul_memory" value="{{system.soul_memory}}" placeholder="0" min="0" />
+              <span class="sl-label">Posture</span>
+              <input class="sl-input" type="number" name="system.Posture" value="{{system.Posture}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Supplies</span>
+              <input class="sl-input" type="number" name="system.supplies" value="{{system.supplies}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Capacity</span>
+              <input class="sl-input" type="number" name="system.capacity" value="{{system.capacity}}" min="0" />
             </label>
           </div>
         </section>
@@ -34,20 +42,24 @@
           <div class="sl-panel-title">Core Attributes</div>
           <div class="sl-field-grid four">
             <label class="sl-field">
-              <span class="sl-label">Vigor</span>
-              <input class="sl-input" type="number" name="system.stats.vigor" value="{{system.stats.vigor}}" min="0" />
+              <span class="sl-label">Strength</span>
+              <input class="sl-input" type="number" name="system.Strength" value="{{system.Strength}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Might</span>
-              <input class="sl-input" type="number" name="system.stats.might" value="{{system.stats.might}}" min="0" />
+              <span class="sl-label">Dexterity</span>
+              <input class="sl-input" type="number" name="system.Dexterity" value="{{system.Dexterity}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Resolve</span>
-              <input class="sl-input" type="number" name="system.stats.resolve" value="{{system.stats.resolve}}" min="0" />
+              <span class="sl-label">Spells</span>
+              <input class="sl-input" type="number" name="system.Spells" value="{{system.Spells}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Cunning</span>
-              <input class="sl-input" type="number" name="system.stats.cunning" value="{{system.stats.cunning}}" min="0" />
+              <span class="sl-label">Incantations</span>
+              <input class="sl-input" type="number" name="system.Incantations" value="{{system.Incantations}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Evasion</span>
+              <input class="sl-input" type="number" name="system.Evasion" value="{{system.Evasion}}" min="0" />
             </label>
           </div>
         </section>

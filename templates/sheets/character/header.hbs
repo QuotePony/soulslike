@@ -15,37 +15,41 @@
 
       <div class="sl-chip-row">
         <label class="sl-chip">
-          <span>Archetype</span>
-          <input class="sl-input" type="text" name="system.archetype" value="{{system.archetype}}" placeholder="Wanderer" />
-        </label>
-        <label class="sl-chip">
           <span>Level</span>
           <input class="sl-input" type="number" name="system.level" value="{{system.level}}" min="0" />
         </label>
         <label class="sl-chip">
-          <span>Origin</span>
-          <input class="sl-input" type="text" name="system.origin" value="{{system.origin}}" placeholder="Ashen Realm" />
+          <span>Capacity</span>
+          <input class="sl-input" type="number" name="system.capacity" value="{{system.capacity}}" min="0" />
+        </label>
+        <label class="sl-chip">
+          <span>Evasion</span>
+          <input class="sl-input" type="number" name="system.Evasion" value="{{system.Evasion}}" min="0" />
         </label>
       </div>
     </div>
   </div>
 
   <div class="sl-statbar">
-    <div class="sl-stat">
+    <div class="sl-stat sl-stat-split">
       <div class="sl-stat-label">HP</div>
-      <input class="sl-input" type="number" name="system.hp" value="{{system.hp}}" placeholder="0" />
+      <div class="sl-split">
+        <input class="sl-input" type="number" name="system.hp.current" value="{{system.hp.current}}" placeholder="0" />
+        <span class="sl-separator">/</span>
+        <input class="sl-input" type="number" name="system.hp.min" value="{{system.hp.min}}" placeholder="0" />
+      </div>
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Vitality</div>
+      <input class="sl-input" type="number" name="system.Vitality" value="{{system.Vitality}}" min="0" />
     </div>
     <div class="sl-stat">
       <div class="sl-stat-label">Posture</div>
-      <input class="sl-input" type="number" name="system.posture" value="{{system.posture}}" placeholder="0" />
+      <input class="sl-input" type="number" name="system.Posture" value="{{system.Posture}}" min="0" />
     </div>
     <div class="sl-stat">
-      <div class="sl-stat-label">Stamina</div>
-      <input class="sl-input" type="number" name="system.stamina" value="{{system.stamina}}" placeholder="0" />
-    </div>
-    <div class="sl-stat">
-      <div class="sl-stat-label">Focus</div>
-      <input class="sl-input" type="number" name="system.focus" value="{{system.focus}}" placeholder="0" />
+      <div class="sl-stat-label">Supplies</div>
+      <input class="sl-input" type="number" name="system.supplies" value="{{system.supplies}}" min="0" />
     </div>
   </div>
 </header>
