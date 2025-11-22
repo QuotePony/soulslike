@@ -1,3 +1,51 @@
-<div class="headerBox">
-    <h2>HOLY SHIT FINALLY</h2>
-</div>
+<header class="sl-header">
+  <div class="sl-header-top">
+    <div class="sl-crest">Soulslike Record</div>
+    <div class="sl-subhead">Track the wanderer and their burden.</div>
+  </div>
+
+  <div class="sl-identity">
+    <div class="sl-portrait">
+      <img src="{{actor.img}}" data-edit="img" alt="{{actor.name}}" />
+    </div>
+
+    <div class="sl-nameplate">
+      <label class="sl-label" for="character-name">Character Name</label>
+      <input id="character-name" class="sl-input sl-name" type="text" name="name" value="{{actor.name}}" placeholder="Nameless Knight" />
+
+      <div class="sl-chip-row">
+        <label class="sl-chip">
+          <span>Archetype</span>
+          <input class="sl-input" type="text" name="system.archetype" value="{{system.archetype}}" placeholder="Wanderer" />
+        </label>
+        <label class="sl-chip">
+          <span>Level</span>
+          <input class="sl-input" type="number" name="system.level" value="{{system.level}}" min="0" />
+        </label>
+        <label class="sl-chip">
+          <span>Origin</span>
+          <input class="sl-input" type="text" name="system.origin" value="{{system.origin}}" placeholder="Ashen Realm" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl-statbar">
+    <div class="sl-stat">
+      <div class="sl-stat-label">HP</div>
+      <input class="sl-input" type="number" name="system.hp" value="{{system.hp}}" placeholder="0" />
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Posture</div>
+      <input class="sl-input" type="number" name="system.posture" value="{{system.posture}}" placeholder="0" />
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Stamina</div>
+      <input class="sl-input" type="number" name="system.stamina" value="{{system.stamina}}" placeholder="0" />
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Focus</div>
+      <input class="sl-input" type="number" name="system.focus" value="{{system.focus}}" placeholder="0" />
+    </div>
+  </div>
+</header>

@@ -1,7 +1,57 @@
-<section class="tab-content">
-    <h3>Weapon Stats</h3>
-    <div class="form-group">
-        <label>Damage Die</label>
-        <input type="text" name="system.damage_die" value="{{system.damage_die}}">
+<section class="sl-item">
+  <header class="sl-item-header">
+    <div class="sl-portrait">
+      <img src="{{item.img}}" data-edit="img" alt="{{item.name}}" />
     </div>
+    <div class="sl-item-meta">
+      <label class="sl-label" for="item-name">Weapon Name</label>
+      <input id="item-name" class="sl-input sl-name" type="text" name="name" value="{{item.name}}" placeholder="Blade of the Fallen" />
+      <div class="sl-chip-row">
+        <div class="sl-chip readonly">
+          <span>Type</span>
+          <strong>{{item.type}}</strong>
+        </div>
+        <label class="sl-chip">
+          <span>Rarity</span>
+          <input class="sl-input" type="text" name="system.rarity" value="{{system.rarity}}" placeholder="Ancient" />
+        </label>
+        <label class="sl-chip">
+          <span>Weight</span>
+          <input class="sl-input" type="number" name="system.weight" value="{{system.weight}}" min="0" step="0.1" />
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="sl-panel-grid">
+    <section class="sl-panel">
+      <div class="sl-panel-title">Weapon Profile</div>
+      <div class="sl-field-grid two">
+        <label class="sl-field">
+          <span class="sl-label">Damage Die</span>
+          <input class="sl-input" type="text" name="system.damage_die" value="{{system.damage_die}}" placeholder="1d8" />
+        </label>
+        <label class="sl-field">
+          <span class="sl-label">Damage Type</span>
+          <input class="sl-input" type="text" name="system.damage_type" value="{{system.damage_type}}" placeholder="Slashing" />
+        </label>
+        <label class="sl-field">
+          <span class="sl-label">Reach</span>
+          <input class="sl-input" type="text" name="system.reach" value="{{system.reach}}" placeholder="Melee / 10 ft" />
+        </label>
+        <label class="sl-field">
+          <span class="sl-label">Scaling</span>
+          <input class="sl-input" type="text" name="system.scaling" value="{{system.scaling}}" placeholder="Might / Resolve" />
+        </label>
+      </div>
+    </section>
+
+    <section class="sl-panel">
+      <div class="sl-panel-title">Description</div>
+      <label class="sl-field full">
+        <span class="sl-label">Lore</span>
+        <textarea class="sl-input sl-textarea" name="system.description" rows="6" placeholder="Etched with names you cannot read.">{{system.description}}</textarea>
+      </label>
+    </section>
+  </div>
 </section>
