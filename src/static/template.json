@@ -21,7 +21,9 @@
             "hands": {
                 "left": null,
                 "right": null
-            }
+            },
+            "note": "",
+            "log": ""
         }
     },
     "Item": {
