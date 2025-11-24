@@ -1,4 +1,5 @@
 name: Build and Release
+run-name: Build and Release - ${{ inputs.release_version }}
 
 permissions:
   contents: write
@@ -6,6 +7,9 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      release_version:
+        description: Version number to release (e.g. 0.2.0; must match package.json)
+        required: true
       release_notes:
         description: Optional notes for the release
         required: false
@@ -32,8 +36,16 @@ jobs:
       - name: Get Version from package.json
         id: get_version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          INPUT_VERSION="${{ inputs.release_version }}"
+          INPUT_VERSION="${INPUT_VERSION#v}"
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
+          if [ "$INPUT_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Provided version ($INPUT_VERSION) does not match package.json version ($PACKAGE_VERSION)." >&2
+            exit 1
+          fi
+
+          echo "version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Zip dist Directory
         run: |
