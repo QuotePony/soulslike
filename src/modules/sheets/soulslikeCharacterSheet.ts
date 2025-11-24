@@ -1,6 +1,7 @@
 // @ts-nocheck
 import type { SoulslikeConfig } from "../config.js";
 import type { SoulslikeActorSystemData } from "../../types/system.js";
+import { handleSheetDrop, type DropTargetDefinition } from "../dragdrop.js";
 
 const api = foundry.applications.api;
 const sheets = foundry.applications.sheets;
@@ -9,6 +10,7 @@ type ActorSheetRenderContext = foundry.applications.api.DocumentSheetV2.RenderCo
 type ActorSheetConfiguration = foundry.applications.api.DocumentSheetV2.Configuration<Actor>;
 type ActorSheetRenderOptions = foundry.applications.api.DocumentSheetV2.RenderOptions;
 type ActorSheetRenderResult = Promise<void>;
+type DropTargets = DropTargetDefinition[];
 
 type HandSlot = string | Item | undefined;
 
@@ -118,26 +120,31 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     return result;
   }
 
-  protected async _onDropItem(event: DragEvent, data: Item.DropData): Promise<unknown> {
-    const item = await Item.fromDropData(data);
-    if (!item) {
-      return;
-    }
+  protected get dropTargets(): DropTargets {
+    return [
+      {
+        selector: "[data-hand]",
+        accepts: ["Item"],
+        itemTypes: ["weapon"],
+        onDrop: async ({ target, document }) => {
+          const hand = target.dataset.hand;
+          const item = document as Item | null;
+          if (!hand || !item) return;
 
-    const hand = (event.target as HTMLElement | null)?.closest("[data-hand]")?.getAttribute("data-hand") ?? undefined;
-    const itemType = String(item.type ?? "");
-    if (hand && itemType === "weapon") {
-      const updateData = {
-        [`system.hands.${hand}`]: item.toObject()
-      } as never;
+          const updateData = {
+            [`system.hands.${hand}`]: item.toObject()
+          } as never;
 
-      return this.actor.update(updateData);
-    }
+          return this.actor.update(updateData);
+        }
+      }
+    ];
+  }
 
-    const parentPrototype = Object.getPrototypeOf(SoulslikeCharacterSheet.prototype) as {
-      _onDropItem?: (this: SoulslikeCharacterSheet, event: DragEvent, data: Item.DropData) => Promise<unknown>;
-    };
-    const parentDrop = parentPrototype._onDropItem;
-    return parentDrop ? parentDrop.call(this, event, data) : undefined;
+  protected async _onDrop(event: DragEvent): Promise<unknown> {
+    const data = TextEditor.getDragEventData(event) as Item.DropData;
+    const dropResult = await handleSheetDrop(event, data, this.dropTargets);
+    if (dropResult.handled) return dropResult.result;
+    return super._onDrop(event);
   }
 }
