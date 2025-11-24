@@ -37,16 +37,10 @@
 
   "documentTypes": {
     "Actor": {
-      "character": {},
-      "npc": {},
-      "enemy": {}
+      "Character": {}
     },
     "Item": {
-      "weapon": {},
-      "armor": {},
-      "spell": {},
-      "consumable": {},
-      "feature": {}
+      "Weapon": {}
     }
   },
 
