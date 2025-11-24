@@ -39,7 +39,8 @@ Hooks.once("ready", async () => {
 function preloadHandlebarsTemplates(): Promise<Handlebars.TemplateDelegate<any>[]> {
   const templatePaths = [
     "systems/soulslike/templates/partials/combat.hbs",
-    "systems/soulslike/templates/partials/details.hbs"
+    "systems/soulslike/templates/partials/details.hbs",
+    "systems/soulslike/templates/partials/inventory.hbs"
   ];
 
   return foundry.applications.handlebars.loadTemplates(templatePaths);
