@@ -5,6 +5,7 @@ import { handleSheetDrop, type DropTargetDefinition } from "../dragdrop.js";
 
 const api = foundry.applications.api;
 const sheets = foundry.applications.sheets;
+const ux = foundry.applications.ux;
 
 type ActorSheetRenderContext = foundry.applications.api.DocumentSheetV2.RenderContext<Actor>;
 type ActorSheetConfiguration = foundry.applications.api.DocumentSheetV2.Configuration<Actor>;
@@ -38,6 +39,8 @@ async function handleItemDelete(this: SoulslikeCharacterSheet, _event: Event, ta
 
 export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   sheetContext: SoulslikeCharacterSheetContext | null = null;
+  tabState = { primary: "tab1", secondary: "tab2-1" };
+  scrollPosition: number | null = null;
 
   static override DEFAULT_OPTIONS = foundry.utils.mergeObject(
     super.DEFAULT_OPTIONS,
@@ -106,17 +109,26 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     const tabs = new foundry.applications.ux.Tabs({
       navSelector: ".tabs",
       contentSelector: ".content",
-      initial: "tab1"
+      initial: this.tabState.primary,
+      callback: (_event, tabsInstance, active) => {
+        void tabsInstance;
+        this.tabState.primary = active;
+      }
     });
     tabs.bind(this.element);
 
     const tabs2 = new foundry.applications.ux.Tabs({
       navSelector: ".tabs2",
       contentSelector: ".content2",
-      initial: "tab2-1"
+      initial: this.tabState.secondary,
+      callback: (_event, tabsInstance, active) => {
+        void tabsInstance;
+        this.tabState.secondary = active;
+      }
     });
     tabs2.bind(this.element);
 
+    this._restoreScrollPosition();
     return result;
   }
 
@@ -131,6 +143,7 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
           const item = document as Item | null;
           if (!hand || !item) return;
 
+          this._captureScrollPosition();
           const updateData = {
             [`system.hands.${hand}`]: item.toObject()
           } as never;
@@ -141,8 +154,20 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     ];
   }
 
+  protected _captureScrollPosition(): void {
+    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
+    this.scrollPosition = content ? content.scrollTop : null;
+  }
+
+  protected _restoreScrollPosition(): void {
+    if (this.scrollPosition === null) return;
+    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
+    if (content) content.scrollTop = this.scrollPosition;
+  }
+
   protected async _onDrop(event: DragEvent): Promise<unknown> {
-    const data = TextEditor.getDragEventData(event) as Item.DropData;
+    this._captureScrollPosition();
+    const data = ux.TextEditor.implementation.getDragEventData(event) as Item.DropData;
     const dropResult = await handleSheetDrop(event, data, this.dropTargets);
     if (dropResult.handled) return dropResult.result;
     return super._onDrop(event);
