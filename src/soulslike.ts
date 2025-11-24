@@ -49,7 +49,10 @@ function preloadHandlebarsTemplates(): Promise<Handlebars.TemplateDelegate<any>[
 function registerHandlebarsHelpers(): void {
   Handlebars.registerHelper("equals", (v1: unknown, v2: unknown) => v1 === v2);
   Handlebars.registerHelper("contains", (element: string, search: string) => element.includes(search));
-  Handlebars.registerHelper("concat", (s1: string, s2: string, s3 = "") => s1 + s2 + s3);
+  Handlebars.registerHelper("concat", (...args: unknown[]) => {
+    const parts = args.slice(0, -1); // drop Handlebars options arg
+    return parts.map((part) => String(part ?? "")).join("");
+  });
   Handlebars.registerHelper("isGreater", (p1: number, p2: number) => p1 > p2);
   Handlebars.registerHelper("isEqualORGreater", (p1: number, p2: number) => p1 >= p2);
   Handlebars.registerHelper("ifOR", (conditional1: boolean, conditional2: boolean) => conditional1 || conditional2);
