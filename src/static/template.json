@@ -46,7 +46,9 @@
             "recurring_damage": {
                 "damage_type": "",
                 "amount": 0
-            }
+            },
+            "note": "",
+            "log": ""
         }
     },
     "Item": {
@@ -113,39 +115,8 @@
             "limited_uses": 1,
             "damage_roll": "d6",
             "damage_stat": "Strength",
-            "action": {
-                "name": "Action",
-                "stamina_cost": 1,
-                "damage_dice": 1,
-                "aoe": "",
-                "effect": "Effect.",
-                "reaction": false
-            }
-        },
-        "Ornament": {
-            "name": "Ornament",
-            "weight": 1,
-            "value": 0,
-            "tags": "",
-            "description": "",
-            "effect": ""
-        },
-        "Ammunition": {
-            "name": "Ammunition",
-            "weight": 1,
-            "value": 0,
-            "tags": "",
-            "description": "",
-            "ammo_type": "",
-            "current_amount": 0,
-            "max_amount": 0,
-            "effect": ""
-        },
-        "Misc": {
-            "name": "Misc",
-            "weight": 1,
-            "value": 0,
-            "description": ""
+            "action1": "Action 1",
+            "action2": "Action 2"
         }
     }
 }

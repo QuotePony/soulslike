@@ -1,3 +1,128 @@
-<div class="contentBox">
-    {{> "systems/soulslike/templates/partials/combat.hbs"}}
+<div class="sl-shell">
+  <nav class="tabs sl-tabs" data-group="primary">
+    <a class="item active" data-tab="tab1">Overview</a>
+    <a class="item" data-tab="tab2">Combat</a>
+    <a class="item" data-tab="tab3">Inventory</a>
+    <a class="item" data-tab="tab4">Notes</a>
+  </nav>
+
+  <section class="content sl-content" data-group="primary">
+    <section class="tab" data-tab="tab1">
+      <div class="sl-panel-grid">
+        <section class="sl-panel">
+          <div class="sl-panel-title">Resources</div>
+          <div class="sl-field-grid two">
+            <label class="sl-field">
+              <span class="sl-label">HP (Current)</span>
+              <input class="sl-input" type="number" name="system.hp.current" value="{{numberInput system.hp.current}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">HP (Min)</span>
+              <input class="sl-input" type="number" name="system.hp.min" value="{{numberInput system.hp.min}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Vitality</span>
+              <input class="sl-input" type="number" name="system.Vitality" value="{{numberInput system.Vitality}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Posture</span>
+              <input class="sl-input" type="number" name="system.Posture" value="{{numberInput system.Posture}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Supplies</span>
+              <input class="sl-input" type="number" name="system.supplies" value="{{numberInput system.supplies}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Capacity</span>
+              <input class="sl-input" type="number" name="system.capacity" value="{{numberInput system.capacity}}" min="0" />
+            </label>
+          </div>
+        </section>
+
+        <section class="sl-panel">
+          <div class="sl-panel-title">Core Attributes</div>
+          <div class="sl-field-grid four">
+            <label class="sl-field">
+              <span class="sl-label">Strength</span>
+              <input class="sl-input" type="number" name="system.Strength" value="{{numberInput system.Strength}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Dexterity</span>
+              <input class="sl-input" type="number" name="system.Dexterity" value="{{numberInput system.Dexterity}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Spells</span>
+              <input class="sl-input" type="number" name="system.Spells" value="{{numberInput system.Spells}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Incantations</span>
+              <input class="sl-input" type="number" name="system.Incantations" value="{{numberInput system.Incantations}}" min="0" />
+            </label>
+            <label class="sl-field">
+              <span class="sl-label">Evasion</span>
+              <input class="sl-input" type="number" name="system.Evasion" value="{{numberInput system.Evasion}}" min="0" />
+            </label>
+          </div>
+        </section>
+      </div>
+
+      {{> "systems/soulslike/templates/partials/details.hbs"}}
+    </section>
+
+    <section class="tab" data-tab="tab2">
+      <section class="sl-panel">
+        <div class="sl-panel-title">Combat Loadout</div>
+        <div class="sl-panel-body">
+          <nav class="tabs2 sl-subtabs" data-group="secondary">
+            <a class="item active" data-tab="tab2-1">Weapons</a>
+            <a class="item" data-tab="tab2-2">Effects</a>
+          </nav>
+
+          <section class="content2 sl-subcontent" data-group="secondary">
+            <section class="tab" data-tab="tab2-1">
+              {{> "systems/soulslike/templates/partials/combat.hbs"}}
+            </section>
+            <section class="tab" data-tab="tab2-2">
+              <ul class="sl-list">
+                {{#if effects.size}}
+                  {{#each effects as |effect|}}
+                    <li class="sl-list-row">
+                      <div class="sl-list-title">{{effect.name}}</div>
+                      <div class="sl-list-sub">
+                        {{#if effect.system.description}}
+                          {{effect.system.description}}
+                        {{else}}
+                          {{effect.description}}
+                        {{/if}}
+                      </div>
+                    </li>
+                  {{/each}}
+                {{else}}
+                  <li class="sl-list-row muted">No active effects yet.</li>
+                {{/if}}
+              </ul>
+            </section>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab" data-tab="tab3">
+      {{> "systems/soulslike/templates/partials/inventory.hbs"}}
+    </section>
+
+    <section class="tab" data-tab="tab4">
+      <section class="sl-panel">
+        <div class="sl-panel-title">Notes & Chronicle</div>
+        <label class="sl-field full">
+          <span class="sl-label">Notes</span>
+          <textarea class="sl-input sl-textarea" name="system.note" rows="6" placeholder="Tactics, worries, names to remember.">{{system.note}}</textarea>
+        </label>
+        <label class="sl-field full">
+          <span class="sl-label">Session Log</span>
+          <textarea class="sl-input sl-textarea" name="system.log" rows="4" placeholder="Leave a trail of scars.">{{system.log}}</textarea>
+        </label>
+      </section>
+    </section>
+  </section>
 </div>

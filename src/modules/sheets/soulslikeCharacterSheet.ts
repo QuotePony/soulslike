@@ -1,14 +1,17 @@
 // @ts-nocheck
 import type { SoulslikeConfig } from "../config.js";
 import type { SoulslikeActorSystemData } from "../../types/system.js";
+import { handleSheetDrop, type DropTargetDefinition } from "../dragdrop.js";
 
 const api = foundry.applications.api;
 const sheets = foundry.applications.sheets;
+const ux = foundry.applications.ux;
 
 type ActorSheetRenderContext = foundry.applications.api.DocumentSheetV2.RenderContext<Actor>;
 type ActorSheetConfiguration = foundry.applications.api.DocumentSheetV2.Configuration<Actor>;
 type ActorSheetRenderOptions = foundry.applications.api.DocumentSheetV2.RenderOptions;
 type ActorSheetRenderResult = Promise<void>;
+type DropTargets = DropTargetDefinition[];
 
 type HandSlot = string | Item | undefined;
 
@@ -34,8 +37,32 @@ async function handleItemDelete(this: SoulslikeCharacterSheet, _event: Event, ta
   }
 }
 
+async function handleInventoryRemove(this: SoulslikeCharacterSheet, _event: Event, target: HTMLElement): Promise<void> {
+  const itemId = (target.closest("[data-item-id]") as HTMLElement | null)?.dataset.itemId;
+  if (!itemId) return;
+
+  this._captureScrollPosition();
+  const handUpdates: Record<string, string> = {};
+  const hands = (this.actor.system as SoulslikeActorSystemData).hands ?? {};
+  for (const [hand, value] of Object.entries(hands)) {
+    const handObj = value as { _id?: string } | string | null | undefined;
+    const handId = typeof handObj === "object" ? handObj?._id : handObj;
+    if (handId === itemId) {
+      handUpdates[`system.hands.${hand}`] = "";
+    }
+  }
+
+  if (Object.keys(handUpdates).length > 0) {
+    await this.actor.update(handUpdates as never);
+  }
+
+  await this.actor.deleteEmbeddedDocuments("Item", [itemId]);
+}
+
 export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   sheetContext: SoulslikeCharacterSheetContext | null = null;
+  tabState = { primary: "tab1", secondary: "tab2-1" };
+  scrollPosition: number | null = null;
 
   static override DEFAULT_OPTIONS = foundry.utils.mergeObject(
     super.DEFAULT_OPTIONS,
@@ -43,7 +70,8 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
       tag: "form",
       classes: Array.from(["soulslike", "sheet", "characterSheet"]),
       actions: {
-        "item-delete": handleItemDelete
+        "item-delete": handleItemDelete,
+        "inventory-remove": handleInventoryRemove
       },
       form: {
         submitOnChange: true,
@@ -104,40 +132,67 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     const tabs = new foundry.applications.ux.Tabs({
       navSelector: ".tabs",
       contentSelector: ".content",
-      initial: "tab1"
+      initial: this.tabState.primary,
+      callback: (_event, tabsInstance, active) => {
+        void tabsInstance;
+        this.tabState.primary = active;
+      }
     });
     tabs.bind(this.element);
 
     const tabs2 = new foundry.applications.ux.Tabs({
       navSelector: ".tabs2",
       contentSelector: ".content2",
-      initial: "tab2-1"
+      initial: this.tabState.secondary,
+      callback: (_event, tabsInstance, active) => {
+        void tabsInstance;
+        this.tabState.secondary = active;
+      }
     });
     tabs2.bind(this.element);
 
+    this._restoreScrollPosition();
     return result;
   }
 
-  protected async _onDropItem(event: DragEvent, data: Item.DropData): Promise<unknown> {
-    const item = await Item.fromDropData(data);
-    if (!item) {
-      return;
-    }
+  protected get dropTargets(): DropTargets {
+    return [
+      {
+        selector: "[data-hand]",
+        accepts: ["Item"],
+        itemTypes: ["weapon"],
+        onDrop: async ({ target, document }) => {
+          const hand = target.dataset.hand;
+          const item = document as Item | null;
+          if (!hand || !item) return;
 
-    const hand = (event.target as HTMLElement | null)?.closest("[data-hand]")?.getAttribute("data-hand") ?? undefined;
-    const itemType = String(item.type ?? "");
-    if (hand && itemType === "weapon") {
-      const updateData = {
-        [`system.hands.${hand}`]: item.toObject()
-      } as never;
+          this._captureScrollPosition();
+          const updateData = {
+            [`system.hands.${hand}`]: item.toObject()
+          } as never;
 
-      return this.actor.update(updateData);
-    }
+          return this.actor.update(updateData);
+        }
+      }
+    ];
+  }
 
-    const parentPrototype = Object.getPrototypeOf(SoulslikeCharacterSheet.prototype) as {
-      _onDropItem?: (this: SoulslikeCharacterSheet, event: DragEvent, data: Item.DropData) => Promise<unknown>;
-    };
-    const parentDrop = parentPrototype._onDropItem;
-    return parentDrop ? parentDrop.call(this, event, data) : undefined;
+  protected _captureScrollPosition(): void {
+    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
+    this.scrollPosition = content ? content.scrollTop : null;
+  }
+
+  protected _restoreScrollPosition(): void {
+    if (this.scrollPosition === null) return;
+    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
+    if (content) content.scrollTop = this.scrollPosition;
+  }
+
+  protected async _onDrop(event: DragEvent): Promise<unknown> {
+    this._captureScrollPosition();
+    const data = ux.TextEditor.implementation.getDragEventData(event) as Item.DropData;
+    const dropResult = await handleSheetDrop(event, data, this.dropTargets);
+    if (dropResult.handled) return dropResult.result;
+    return super._onDrop(event);
   }
 }

@@ -1,3 +1,55 @@
-<div class="headerBox">
-    <h2>HOLY SHIT FINALLY</h2>
-</div>
+<header class="sl-header">
+  <div class="sl-header-top">
+    <div class="sl-crest">Soulslike Record</div>
+    <div class="sl-subhead">Track the wanderer and their burden.</div>
+  </div>
+
+  <div class="sl-identity">
+    <div class="sl-portrait">
+      <img src="{{actor.img}}" data-edit="img" alt="{{actor.name}}" />
+    </div>
+
+    <div class="sl-nameplate">
+      <label class="sl-label" for="character-name">Character Name</label>
+      <input id="character-name" class="sl-input sl-name" type="text" name="name" value="{{actor.name}}" placeholder="Nameless Knight" />
+
+      <div class="sl-chip-row">
+        <label class="sl-chip">
+          <span>Level</span>
+          <input class="sl-input" type="number" name="system.level" value="{{numberInput system.level}}" min="0" />
+        </label>
+        <label class="sl-chip">
+          <span>Capacity</span>
+          <input class="sl-input" type="number" name="system.capacity" value="{{numberInput system.capacity}}" min="0" />
+        </label>
+        <label class="sl-chip">
+          <span>Evasion</span>
+          <input class="sl-input" type="number" name="system.Evasion" value="{{numberInput system.Evasion}}" min="0" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl-statbar">
+    <div class="sl-stat sl-stat-split">
+      <div class="sl-stat-label">HP</div>
+      <div class="sl-split">
+        <input class="sl-input" type="number" name="system.hp.current" value="{{numberInput system.hp.current}}" placeholder="0" />
+        <span class="sl-separator">/</span>
+        <input class="sl-input" type="number" name="system.hp.min" value="{{numberInput system.hp.min}}" placeholder="0" />
+      </div>
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Vitality</div>
+      <input class="sl-input" type="number" name="system.Vitality" value="{{numberInput system.Vitality}}" min="0" />
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Posture</div>
+      <input class="sl-input" type="number" name="system.Posture" value="{{numberInput system.Posture}}" min="0" />
+    </div>
+    <div class="sl-stat">
+      <div class="sl-stat-label">Supplies</div>
+      <input class="sl-input" type="number" name="system.supplies" value="{{numberInput system.supplies}}" min="0" />
+    </div>
+  </div>
+</header>
