@@ -53,6 +53,12 @@ function registerHandlebarsHelpers(): void {
     const parts = args.slice(0, -1); // drop Handlebars options arg
     return parts.map((part) => String(part ?? "")).join("");
   });
+  Handlebars.registerHelper("numberInput", (value: unknown) => {
+    if (value === null || value === undefined || value === "") return "";
+    const normalized = typeof value === "string" ? value.replace(",", ".") : value;
+    const num = Number(normalized);
+    return Number.isFinite(num) ? num : "";
+  });
   Handlebars.registerHelper("isGreater", (p1: number, p2: number) => p1 > p2);
   Handlebars.registerHelper("isEqualORGreater", (p1: number, p2: number) => p1 >= p2);
   Handlebars.registerHelper("ifOR", (conditional1: boolean, conditional2: boolean) => conditional1 || conditional2);

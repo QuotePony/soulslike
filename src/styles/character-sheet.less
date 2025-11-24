@@ -433,3 +433,40 @@
 .soulslike.sheet .sl-item .sl-chip strong {
   font-size: 15px;
 }
+
+.soulslike.sheet .sl-list-row-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.soulslike.sheet .sl-item-details {
+  margin-top: 8px;
+  border-top: 1px solid var(--sl-border);
+  padding-top: 8px;
+  color: var(--sl-muted);
+}
+
+.soulslike.sheet .sl-item-details summary {
+  cursor: pointer;
+  color: var(--sl-accent);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.soulslike.sheet .sl-item-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.soulslike.sheet .sl-item-description {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--sl-border);
+  color: var(--sl-text);
+}
