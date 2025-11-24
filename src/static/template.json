@@ -31,7 +31,9 @@
                 "physical": 0,
                 "intellect": 0,
                 "faith": 0
-            }
+            },
+            "note": "",
+            "log": ""
         },
         "NPC": {
             "hp": {
@@ -46,9 +48,7 @@
             "recurring_damage": {
                 "damage_type": "",
                 "amount": 0
-            },
-            "note": "",
-            "log": ""
+            }
         }
     },
     "Item": {
@@ -115,8 +115,14 @@
             "limited_uses": 1,
             "damage_roll": "d6",
             "damage_stat": "Strength",
-            "action1": "Action 1",
-            "action2": "Action 2"
+            "action1": {
+                "name": "Action 1",
+                "stamina_cost": 1,
+                "damage_dice": 1,
+                "aoe": "",
+                "effect": "Effect.",
+                "reaction": false
+            }
         }
     }
 }
