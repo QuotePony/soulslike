@@ -37,6 +37,28 @@ async function handleItemDelete(this: SoulslikeCharacterSheet, _event: Event, ta
   }
 }
 
+async function handleInventoryRemove(this: SoulslikeCharacterSheet, _event: Event, target: HTMLElement): Promise<void> {
+  const itemId = (target.closest("[data-item-id]") as HTMLElement | null)?.dataset.itemId;
+  if (!itemId) return;
+
+  this._captureScrollPosition();
+  const handUpdates: Record<string, string> = {};
+  const hands = (this.actor.system as SoulslikeActorSystemData).hands ?? {};
+  for (const [hand, value] of Object.entries(hands)) {
+    const handObj = value as { _id?: string } | string | null | undefined;
+    const handId = typeof handObj === "object" ? handObj?._id : handObj;
+    if (handId === itemId) {
+      handUpdates[`system.hands.${hand}`] = "";
+    }
+  }
+
+  if (Object.keys(handUpdates).length > 0) {
+    await this.actor.update(handUpdates as never);
+  }
+
+  await this.actor.deleteEmbeddedDocuments("Item", [itemId]);
+}
+
 export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   sheetContext: SoulslikeCharacterSheetContext | null = null;
   tabState = { primary: "tab1", secondary: "tab2-1" };
@@ -48,7 +70,8 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
       tag: "form",
       classes: Array.from(["soulslike", "sheet", "characterSheet"]),
       actions: {
-        "item-delete": handleItemDelete
+        "item-delete": handleItemDelete,
+        "inventory-remove": handleInventoryRemove
       },
       form: {
         submitOnChange: true,
