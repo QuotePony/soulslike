@@ -1,0 +1,21 @@
+<section class="sl-panel">
+  <div class="sl-panel-title">Inventory</div>
+  <p class="sl-help">Drag items from the Items directory or other sheets to add them here.</p>
+  <ul class="sl-list">
+    {{#if items.size}}
+      {{#each items as |item|}}
+        <li class="sl-list-row" data-item-id="{{item.id}}">
+          <div class="sl-list-title">{{item.name}}</div>
+          <div class="sl-list-sub">
+            {{item.type}}
+            {{#if item.system.tags}}
+              · {{item.system.tags}}
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    {{else}}
+      <li class="sl-list-row muted">No items yet. Drag items here to add them.</li>
+    {{/if}}
+  </ul>
+</section>

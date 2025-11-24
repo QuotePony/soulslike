@@ -2,7 +2,8 @@
   <nav class="tabs sl-tabs" data-group="primary">
     <a class="item active" data-tab="tab1">Overview</a>
     <a class="item" data-tab="tab2">Combat</a>
-    <a class="item" data-tab="tab3">Notes</a>
+    <a class="item" data-tab="tab3">Inventory</a>
+    <a class="item" data-tab="tab4">Notes</a>
   </nav>
 
   <section class="content sl-content" data-group="primary">
@@ -107,6 +108,10 @@
     </section>
 
     <section class="tab" data-tab="tab3">
+      {{> "systems/soulslike/templates/partials/inventory.hbs"}}
+    </section>
+
+    <section class="tab" data-tab="tab4">
       <section class="sl-panel">
         <div class="sl-panel-title">Notes & Chronicle</div>
         <label class="sl-field full">
