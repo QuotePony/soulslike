@@ -5,19 +5,25 @@
         ],
         "Character": {
             "hp": {
-                "current": 10,
+                "current": 30,
                 "min": 0
             },
             "level": 1,
+            "stamina": {
+                "current": 3,
+                "max": 3
+            },
             "supplies": 5,
             "capacity": 5,
             "Vitality": 30,
             "Posture": 4,
+            "postureCurrent": 4,
             "Evasion": 0,
             "Strength": 0,
             "Dexterity": 0,
             "Intellect": 0,
             "Faith": 0,
+            "inventory_limit": 20,
             "hands": {
                 "left": null,
                 "right": null
