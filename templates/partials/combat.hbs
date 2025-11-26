@@ -1,9 +1,12 @@
 <div class="sl-gear-grid">
   <div class="hand-slot sl-card" data-hand="left">
     <div class="sl-card-head">
-      <h3>Left Hand</h3>
+      <div class="sl-card-title">
+        <h3>Left Hand</h3>
+        <span class="sl-tooltip" title="Drag a weapon here. Two-handing (slotting the same weapon in both hands) boosts its damage; items tagged 2H need both hands.">?</span>
+      </div>
       <button class="sl-icon-button" type="button" data-action="item-delete" title="Clear slot">
-        �o
+        X
       </button>
     </div>
     {{#if hands.left}}
@@ -35,9 +38,12 @@
 
   <div class="hand-slot sl-card" data-hand="right">
     <div class="sl-card-head">
-      <h3>Right Hand</h3>
+      <div class="sl-card-title">
+        <h3>Right Hand</h3>
+        <span class="sl-tooltip" title="Actions come from the weapon cards. Apply the item's damage type, stat, and stamina costs when you roll.">?</span>
+      </div>
       <button class="sl-icon-button" type="button" data-action="item-delete" title="Clear slot">
-        �o
+        X
       </button>
     </div>
     {{#if hands.right}}
@@ -67,3 +73,4 @@
     {{/if}}
   </div>
 </div>
+<p class="sl-help">Ammunition-tagged actions spend ammo; refill an ammo type for 1 supply. Reactions marked with R resolve immediately when their trigger happens.</p>

@@ -56,6 +56,32 @@
   font-size: 12px;
 }
 
+.soulslike.sheet .sl-label-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.soulslike.sheet .sl-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--sl-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--sl-muted);
+  font-size: 12px;
+  cursor: help;
+  line-height: 1;
+}
+
+.soulslike.sheet .sl-tooltip:hover {
+  border-color: var(--sl-accent);
+  color: var(--sl-text);
+}
+
 .soulslike.sheet .sl-header {
   background: linear-gradient(135deg, rgba(15, 22, 35, 0.9), rgba(5, 8, 13, 0.95));
   border: 1px solid var(--sl-border);
@@ -202,6 +228,11 @@
   align-items: start;
 }
 
+.soulslike.sheet .sl-help {
+  color: var(--sl-muted);
+  line-height: 1.4;
+}
+
 .soulslike.sheet .sl-column {
   display: flex;
   flex-direction: column;
@@ -323,6 +354,18 @@
   min-height: 120px;
 }
 
+.soulslike.sheet .sl-input-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
+  align-items: center;
+  gap: 6px;
+}
+
+.soulslike.sheet .sl-input-note {
+  color: var(--sl-muted);
+  font-size: 12px;
+}
+
 .soulslike.sheet .sl-note-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -411,6 +454,12 @@
   text-transform: uppercase;
 }
 
+.soulslike.sheet .sl-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .soulslike.sheet .sl-icon-button {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--sl-border);
@@ -468,6 +517,38 @@
   text-align: center;
   color: var(--sl-muted);
   background: rgba(255, 255, 255, 0.02);
+}
+
+.soulslike.sheet .sl-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.soulslike.sheet .sl-pill-row.compact {
+  margin-top: 4px;
+}
+
+.soulslike.sheet .sl-pill {
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--sl-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--sl-text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.soulslike.sheet .sl-pill.muted {
+  color: var(--sl-muted);
+}
+
+.soulslike.sheet .sl-pill.solid {
+  background: rgba(209, 180, 106, 0.15);
+  border-color: rgba(209, 180, 106, 0.35);
+  color: var(--sl-text);
 }
 
 .soulslike.sheet .sl-item {
@@ -537,4 +618,19 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--sl-border);
   color: var(--sl-text);
+}
+
+.soulslike.sheet .sl-quick-ref {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--sl-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.soulslike.sheet .sl-rank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 6px;
 }

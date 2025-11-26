@@ -8,67 +8,174 @@
 
   <section class="content sl-content" data-group="primary">
     <section class="tab" data-tab="tab-stats">
-      <div class="sl-horizontal-grid">
+      <div class="sl-panel-grid">
         <section class="sl-panel sl-panel-tall">
-          <div class="sl-panel-title">Vitals & Load</div>
+          <div class="sl-panel-title">Vitals & Status</div>
           <div class="sl-field-grid two">
             <label class="sl-field">
-              <span class="sl-label">Level</span>
+              <div class="sl-label-row">
+                <span class="sl-label">Level</span>
+                <span class="sl-tooltip" title="Gain a level after each boss; raise one stat rank.">?</span>
+              </div>
               <input class="sl-input" type="number" name="system.level" value="{{numberInput system.level}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">HP (Current)</span>
-              <input class="sl-input" type="number" name="system.hp.current" value="{{numberInput system.hp.current}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">HP / Vitality</span>
+                <span class="sl-tooltip" title="HP equals Vitality and cannot exceed it. At 0 hp you are Fallen: speed 1 and cannot spend stamina.">?</span>
+              </div>
+              <div class="sl-input-pair">
+                <input class="sl-input" type="number" name="system.hp.current" value="{{numberInput system.hp.current}}" min="0" />
+                <span class="sl-separator">/</span>
+                <input class="sl-input" type="number" name="system.Vitality" value="{{numberInput system.Vitality}}" min="0" />
+              </div>
             </label>
             <label class="sl-field">
-              <span class="sl-label">HP (Min)</span>
-              <input class="sl-input" type="number" name="system.hp.min" value="{{numberInput system.hp.min}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Posture (Current / Max)</span>
+                <span class="sl-tooltip" title="When posture reaches 0 you become Exposed; skip spending stamina for a full turn to reset to max.">?</span>
+              </div>
+              <div class="sl-input-pair">
+                <input class="sl-input" type="number" name="system.postureCurrent" value="{{numberInput system.postureCurrent}}" min="0" />
+                <span class="sl-separator">/</span>
+                <input class="sl-input" type="number" name="system.Posture" value="{{numberInput system.Posture}}" min="0" />
+              </div>
             </label>
             <label class="sl-field">
-              <span class="sl-label">Vitality</span>
-              <input class="sl-input" type="number" name="system.Vitality" value="{{numberInput system.Vitality}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Shielding</span>
+                <span class="sl-tooltip" title="Shield sits in front of hp; only the highest shield source counts.">?</span>
+              </div>
+              <input class="sl-input" type="number" name="system.shielding" value="{{numberInput system.shielding}}" min="0" />
             </label>
             <label class="sl-field">
-              <span class="sl-label">Posture</span>
-              <input class="sl-input" type="number" name="system.Posture" value="{{numberInput system.Posture}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Recurring Damage</span>
+                <span class="sl-tooltip" title="Take this damage now and at the end of your turns; healing reduces this first. Only the highest value per damage type applies.">?</span>
+              </div>
+              <div class="sl-input-pair">
+                <input class="sl-input" type="number" name="system.recurring_damage.amount" value="{{numberInput system.recurring_damage.amount}}" min="0" />
+                <span class="sl-separator">&times;</span>
+                <input class="sl-input" type="text" name="system.recurring_damage.damage_type" value="{{system.recurring_damage.damage_type}}" placeholder="damage type" />
+              </div>
             </label>
-            <label class="sl-field">
-              <span class="sl-label">Evasion</span>
-              <input class="sl-input" type="number" name="system.Evasion" value="{{numberInput system.Evasion}}" min="0" />
-            </label>
-            <label class="sl-field">
-              <span class="sl-label">Supplies</span>
-              <input class="sl-input" type="number" name="system.supplies" value="{{numberInput system.supplies}}" min="0" />
-            </label>
-            <label class="sl-field">
-              <span class="sl-label">Capacity</span>
-              <input class="sl-input" type="number" name="system.capacity" value="{{numberInput system.capacity}}" min="0" />
-            </label>
+          </div>
+          <div class="sl-pill-row">
+            <div class="sl-pill" title="Cannot spend stamina; speed reduced to 1.">Fallen</div>
+            <div class="sl-pill" title="Cannot use reactions; next damaging action against you doubles its damage dice then posture resets.">Exposed</div>
           </div>
         </section>
 
         <section class="sl-panel sl-panel-tall">
-          <div class="sl-panel-title">Core Attributes</div>
-          <div class="sl-field-grid four">
+          <div class="sl-panel-title">Stamina & Supplies</div>
+          <div class="sl-field-grid two">
             <label class="sl-field">
-              <span class="sl-label">Strength</span>
-              <input class="sl-input" type="number" name="system.Strength" value="{{numberInput system.Strength}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Stamina (Current / Max)</span>
+                <span class="sl-tooltip" title="Spend stamina for actions. Regain all at the end of your turn (3 base, 4 if you are the only player). Overextending costs +1 stamina, makes you Exposed, and only regains 2.">?</span>
+              </div>
+              <div class="sl-input-pair">
+                <input class="sl-input" type="number" name="system.stamina.current" value="{{numberInput system.stamina.current}}" min="0" />
+                <span class="sl-separator">/</span>
+                <input class="sl-input" type="number" name="system.stamina.max" value="{{numberInput system.stamina.max}}" min="0" />
+              </div>
             </label>
             <label class="sl-field">
-              <span class="sl-label">Dexterity</span>
-              <input class="sl-input" type="number" name="system.Dexterity" value="{{numberInput system.Dexterity}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Capacity</span>
+                <span class="sl-tooltip" title="Maximum supplies you can carry; starts at 5.">?</span>
+              </div>
+              <input class="sl-input" type="number" name="system.capacity" value="{{numberInput system.capacity}}" min="0" />
+              <div class="sl-input-note">Supplies max equals Capacity.</div>
             </label>
             <label class="sl-field">
-              <span class="sl-label">Spells</span>
-              <input class="sl-input" type="number" name="system.Spells" value="{{numberInput system.Spells}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Supplies</span>
+                <span class="sl-tooltip" title="Spend supplies on tools, ammo, and healing; refreshes on rest and can be shared.">?</span>
+              </div>
+              <input class="sl-input" type="number" name="system.supplies" value="{{numberInput system.supplies}}" min="0" />
+              <div class="sl-input-note">Keep this at or below Capacity.</div>
             </label>
             <label class="sl-field">
-              <span class="sl-label">Incantations</span>
-              <input class="sl-input" type="number" name="system.Incantations" value="{{numberInput system.Incantations}}" min="0" />
+              <div class="sl-label-row">
+                <span class="sl-label">Spell Uses (Intellect)</span>
+                <span class="sl-tooltip" title="Remaining limited-use spell actions; total uses each rest equals your Intellect stat.">?</span>
+              </div>
+              <input class="sl-input" type="number" name="system.magic_uses.intellect" value="{{numberInput system.magic_uses.intellect}}" min="0" />
             </label>
+            <label class="sl-field">
+              <div class="sl-label-row">
+                <span class="sl-label">Incantation Uses (Faith)</span>
+                <span class="sl-tooltip" title="Remaining limited-use incantation actions; total uses each rest equals your Faith stat.">?</span>
+              </div>
+              <input class="sl-input" type="number" name="system.magic_uses.faith" value="{{numberInput system.magic_uses.faith}}" min="0" />
+            </label>
+            <div class="sl-field">
+              <div class="sl-label-row">
+                <span class="sl-label">Inventory</span>
+                <span class="sl-tooltip" title="You can store up to 20 items/cards; exceeding it means you cannot move. Equipped gear does not count toward the limit.">?</span>
+              </div>
+              <div class="sl-pill-row compact">
+                <div class="sl-pill solid">{{items.size}} carried</div>
+                <div class="sl-pill solid">Limit {{#if system.inventory_limit}}{{system.inventory_limit}}{{else}}20{{/if}}</div>
+              </div>
+              <div class="sl-input-note">Recycle duplicate gear for +1 supply.</div>
+            </div>
           </div>
         </section>
       </div>
+
+      <section class="sl-panel">
+        <div class="sl-panel-title">Attributes & Evasion</div>
+        <div class="sl-field-grid four">
+          <label class="sl-field">
+            <div class="sl-label-row">
+              <span class="sl-label">Strength</span>
+              <span class="sl-tooltip" title="Heavy weapons and some tools use Strength for damage.">?</span>
+            </div>
+            <input class="sl-input" type="number" name="system.Strength" value="{{numberInput system.Strength}}" min="0" />
+          </label>
+          <label class="sl-field">
+            <div class="sl-label-row">
+              <span class="sl-label">Dexterity</span>
+              <span class="sl-tooltip" title="Fast weapons and finesse tools use Dexterity for damage.">?</span>
+            </div>
+            <input class="sl-input" type="number" name="system.Dexterity" value="{{numberInput system.Dexterity}}" min="0" />
+          </label>
+          <label class="sl-field">
+            <div class="sl-label-row">
+              <span class="sl-label">Intellect</span>
+              <span class="sl-tooltip" title="Determines spell damage and how many limited-use spell actions you get per rest.">?</span>
+            </div>
+            <input class="sl-input" type="number" name="system.Intellect" value="{{numberInput system.Intellect}}" min="0" />
+          </label>
+          <label class="sl-field">
+            <div class="sl-label-row">
+              <span class="sl-label">Faith</span>
+              <span class="sl-tooltip" title="Determines incantation damage and how many limited-use incantation actions you get per rest.">?</span>
+            </div>
+            <input class="sl-input" type="number" name="system.Faith" value="{{numberInput system.Faith}}" min="0" />
+          </label>
+          <label class="sl-field">
+            <div class="sl-label-row">
+              <span class="sl-label">Evasion</span>
+              <span class="sl-tooltip" title="Roll 2d6 + Evasion to meet or beat action precision (default target 7). Penalties apply for evasion difficulty.">?</span>
+            </div>
+            <input class="sl-input" type="number" name="system.Evasion" value="{{numberInput system.Evasion}}" min="0" />
+          </label>
+        </div>
+        <div class="sl-quick-ref">
+          <div class="sl-label-row">
+            <span class="sl-label">Rank Reference</span>
+            <span class="sl-tooltip" title="Min / Low / Med / High / Max translate to the values below. Always round up when dividing.">?</span>
+          </div>
+          <div class="sl-rank-grid">
+            <div class="sl-pill muted">Vitality: 30 / 35 / 40 / 45 / 50</div>
+            <div class="sl-pill muted">Posture: 4 / 5 / 6 / 7 / 8</div>
+            <div class="sl-pill muted">Str / Dex / Int / Faith / Evasion: +0 / +1 / +2 / +3 / +4</div>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="tab" data-tab="tab-combat">
