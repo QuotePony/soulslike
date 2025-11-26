@@ -3,23 +3,23 @@
     <div class="sl-card-head">
       <h3>Left Hand</h3>
       <button class="sl-icon-button" type="button" data-action="item-delete" title="Clear slot">
-        ✕
+        �o
       </button>
     </div>
-    {{#if system.hands.left}}
-      <div class="sl-hand-card" data-item-id="{{system.hands.left._id}}">
-        <img src="{{system.hands.left.img}}" alt="{{system.hands.left.name}}" />
+    {{#if hands.left}}
+      <div class="sl-hand-card" data-item-id="{{hands.left._id}}">
+        <img src="{{hands.left.img}}" alt="{{hands.left.name}}" />
         <div class="sl-hand-meta">
           <div class="sl-hand-name">
-            {{#if system.hands.left.name}}
-              {{system.hands.left.name}}
+            {{#if hands.left.name}}
+              {{hands.left.name}}
             {{else}}
-              {{system.hands.left}}
+              {{hands.left}}
             {{/if}}
           </div>
           <div class="sl-hand-sub">
-            {{#if system.hands.left.type}}
-              {{system.hands.left.type}}
+            {{#if hands.left.type}}
+              {{hands.left.type}}
             {{else}}
               Drag a weapon here
             {{/if}}
@@ -37,23 +37,23 @@
     <div class="sl-card-head">
       <h3>Right Hand</h3>
       <button class="sl-icon-button" type="button" data-action="item-delete" title="Clear slot">
-        ✕
+        �o
       </button>
     </div>
-    {{#if system.hands.right}}
-      <div class="sl-hand-card" data-item-id="{{system.hands.right._id}}">
-        <img src="{{system.hands.right.img}}" alt="{{system.hands.right.name}}" />
+    {{#if hands.right}}
+      <div class="sl-hand-card" data-item-id="{{hands.right._id}}">
+        <img src="{{hands.right.img}}" alt="{{hands.right.name}}" />
         <div class="sl-hand-meta">
           <div class="sl-hand-name">
-            {{#if system.hands.right.name}}
-              {{system.hands.right.name}}
+            {{#if hands.right.name}}
+              {{hands.right.name}}
             {{else}}
-              {{system.hands.right}}
+              {{hands.right}}
             {{/if}}
           </div>
           <div class="sl-hand-sub">
-            {{#if system.hands.right.type}}
-              {{system.hands.right.type}}
+            {{#if hands.right.type}}
+              {{hands.right.type}}
             {{else}}
               Drag a weapon here
             {{/if}}

@@ -1,53 +1,51 @@
-<section class="sl-panel">
-  <div class="sl-panel-title">Inventory</div>
-  <p class="sl-help">Drag items from the Items directory or other sheets to add them here.</p>
-  <ul class="sl-list">
-    {{#if items.size}}
-      {{#each items as |item|}}
-        <li class="sl-list-row" data-item-id="{{item.id}}">
-          <div class="sl-list-row-main">
-            <div>
-              <div class="sl-list-title">{{item.name}}</div>
-              <div class="sl-list-sub">
-                {{item.type}}
-                {{#if item.system.tags}}
-                  · {{item.system.tags}}
-                {{/if}}
-              </div>
-            </div>
-            <button class="sl-icon-button" type="button" data-action="inventory-remove" title="Remove item">
-              ✕
-            </button>
-          </div>
-          <details class="sl-item-details">
-            <summary>View details</summary>
-            <div class="sl-item-detail-grid">
-              {{#if item.system.damage_die}}
-                <div><strong>Damage:</strong> {{item.system.damage_die}}</div>
-              {{/if}}
-              {{#if item.system.damage_stat}}
-                <div><strong>Stat:</strong> {{item.system.damage_stat}}</div>
-              {{/if}}
-              {{#if item.system.action1}}
-                <div><strong>Action 1:</strong> {{item.system.action1}}</div>
-              {{/if}}
-              {{#if item.system.action2}}
-                <div><strong>Action 2:</strong> {{item.system.action2}}</div>
-              {{/if}}
+<div class="sl-panel-title">Inventory</div>
+<p class="sl-help">Drag items from the Items directory or other sheets to add them here.</p>
+<ul class="sl-list inventory-grid">
+  {{#if items.size}}
+    {{#each items as |item|}}
+      <li class="sl-list-row" data-item-id="{{item.id}}">
+        <div class="sl-list-row-main">
+          <div>
+            <div class="sl-list-title">{{item.name}}</div>
+            <div class="sl-list-sub">
+              {{item.type}}
               {{#if item.system.tags}}
-                <div><strong>Tags:</strong> {{item.system.tags}}</div>
+                {{item.system.tags}}
               {{/if}}
             </div>
-            {{#if item.system.description}}
-              <div class="sl-item-description">
-                {{{item.system.description}}}
-              </div>
+          </div>
+          <button class="sl-icon-button" type="button" data-action="inventory-remove" title="Remove item">
+            �o
+          </button>
+        </div>
+        <details class="sl-item-details">
+          <summary>View details</summary>
+          <div class="sl-item-detail-grid">
+            {{#if item.system.damage_die}}
+              <div><strong>Damage:</strong> {{item.system.damage_die}}</div>
             {{/if}}
-          </details>
-        </li>
-      {{/each}}
-    {{else}}
-      <li class="sl-list-row muted">No items yet. Drag items here to add them.</li>
-    {{/if}}
-  </ul>
-</section>
+            {{#if item.system.damage_stat}}
+              <div><strong>Stat:</strong> {{item.system.damage_stat}}</div>
+            {{/if}}
+            {{#if item.system.action1}}
+              <div><strong>Action 1:</strong> {{item.system.action1}}</div>
+            {{/if}}
+            {{#if item.system.action2}}
+              <div><strong>Action 2:</strong> {{item.system.action2}}</div>
+            {{/if}}
+            {{#if item.system.tags}}
+              <div><strong>Tags:</strong> {{item.system.tags}}</div>
+            {{/if}}
+          </div>
+          {{#if item.system.description}}
+            <div class="sl-item-description">
+              {{{item.system.description}}}
+            </div>
+          {{/if}}
+        </details>
+      </li>
+    {{/each}}
+  {{else}}
+    <li class="sl-list-row muted">No items yet. Drag items here to add them.</li>
+  {{/if}}
+</ul>
