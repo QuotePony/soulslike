@@ -61,8 +61,9 @@ async function handleInventoryRemove(this: SoulslikeCharacterSheet, _event: Even
 
 export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   sheetContext: SoulslikeCharacterSheetContext | null = null;
-  tabState = { primary: "tab1", secondary: "tab2-1" };
+  tabState = { primary: "tab-stats" };
   scrollPosition: number | null = null;
+  private readonly boundCaptureScroll = (): void => this._captureScrollPosition();
 
   static override DEFAULT_OPTIONS = foundry.utils.mergeObject(
     super.DEFAULT_OPTIONS,
@@ -78,7 +79,7 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
         closeOnSubmit: false
       },
       position: {
-        width: 650
+        width: 1100
       }
     },
     { inplace: false }
@@ -140,17 +141,7 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     });
     tabs.bind(this.element);
 
-    const tabs2 = new foundry.applications.ux.Tabs({
-      navSelector: ".tabs2",
-      contentSelector: ".content2",
-      initial: this.tabState.secondary,
-      callback: (_event, tabsInstance, active) => {
-        void tabsInstance;
-        this.tabState.secondary = active;
-      }
-    });
-    tabs2.bind(this.element);
-
+    this._bindScrollPersistence();
     this._restoreScrollPosition();
     return result;
   }
@@ -182,10 +173,41 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
     this.scrollPosition = content ? content.scrollTop : null;
   }
 
+  protected _bindScrollPersistence(): void {
+    const element = this.element;
+    if (!element) return;
+
+    element.removeEventListener("change", this.boundCaptureScroll, true);
+    element.removeEventListener("input", this.boundCaptureScroll, true);
+    element.addEventListener("change", this.boundCaptureScroll, true);
+    element.addEventListener("input", this.boundCaptureScroll, true);
+
+    const content = element.querySelector(".window-content") as HTMLElement | null;
+    if (content) {
+      content.removeEventListener("scroll", this.boundCaptureScroll);
+      content.addEventListener("scroll", this.boundCaptureScroll);
+    }
+  }
+
+  protected async _onSubmit(event: Event, options?: ActorSheetRenderOptions): Promise<ActorSheetRenderResult> {
+    this._captureScrollPosition();
+    return super._onSubmit(event, options);
+  }
+
   protected _restoreScrollPosition(): void {
     if (this.scrollPosition === null) return;
-    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
-    if (content) content.scrollTop = this.scrollPosition;
+    const target = this.scrollPosition;
+    const restore = (): void => {
+      const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
+      if (content) content.scrollTop = target;
+    };
+
+    requestAnimationFrame(() => {
+      restore();
+      requestAnimationFrame(() => restore());
+    });
+
+    this.scrollPosition = null;
   }
 
   protected async _onDrop(event: DragEvent): Promise<unknown> {
