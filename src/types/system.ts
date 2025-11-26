@@ -3,16 +3,32 @@ export interface SoulslikeActorSystemData {
     current?: number;
     min?: number;
   };
+  stamina?: {
+    current?: number;
+    max?: number;
+  };
   level?: number;
   supplies?: number;
   capacity?: number;
   Vitality?: number;
   Posture?: number;
+  postureCurrent?: number;
   Evasion?: number;
   Strength?: number;
   Dexterity?: number;
-  Spells?: number;
-  Incantations?: number;
+  Intellect?: number;
+  Faith?: number;
+  inventory_limit?: number;
+  shielding?: number;
+  recurring_damage?: {
+    damage_type?: string;
+    amount?: number;
+  };
+  magic_uses?: {
+    physical?: number;
+    intellect?: number;
+    faith?: number;
+  };
   hands?: Record<string, string | null>;
   note?: string;
   log?: string;
