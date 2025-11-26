@@ -18,6 +18,8 @@
   box-sizing: border-box;
   height: 100%;
   max-height: 100%;
+  max-width: 1180px;
+  width: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -86,6 +88,10 @@
   grid-template-columns: 110px 1fr;
   gap: 18px;
   align-items: center;
+}
+
+.soulslike.sheet .sl-identity.compact {
+  grid-template-columns: 1fr;
 }
 
 .soulslike.sheet .sl-portrait {
@@ -189,6 +195,27 @@
   padding-bottom: 8px;
 }
 
+.soulslike.sheet .sl-horizontal-grid {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.2fr) minmax(380px, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.soulslike.sheet .sl-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.soulslike.sheet .sl-panel-tall {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
 .soulslike.sheet .sl-tabs,
 .soulslike.sheet .sl-subtabs {
   display: inline-flex;
@@ -224,7 +251,7 @@
 .soulslike.sheet .sl-panel-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .soulslike.sheet .sl-panel {
@@ -233,6 +260,17 @@
   border-radius: 14px;
   padding: 14px;
   box-shadow: var(--sl-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.soulslike.sheet .sl-panel-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: var(--sl-muted);
+  margin-bottom: 8px;
 }
 
 .soulslike.sheet .sl-panel-title {
@@ -249,6 +287,13 @@
   gap: 10px;
 }
 
+.soulslike.sheet .sl-panel-body-dim {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--sl-border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .soulslike.sheet .sl-field-grid {
   display: grid;
   gap: 10px;
@@ -256,7 +301,7 @@
 }
 
 .soulslike.sheet .sl-field-grid.two {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .soulslike.sheet .sl-field-grid.four {
@@ -276,6 +321,12 @@
 .soulslike.sheet .sl-textarea {
   resize: vertical;
   min-height: 120px;
+}
+
+.soulslike.sheet .sl-note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
 }
 
 .soulslike.sheet .sl-list {
@@ -302,6 +353,16 @@
   text-align: center;
 }
 
+.soulslike.sheet .sl-list.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 10px;
+}
+
+.soulslike.sheet .sl-list.inventory-grid .sl-list-row {
+  height: 100%;
+}
+
 .soulslike.sheet .sl-list-title {
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -314,8 +375,15 @@
 
 .soulslike.sheet .sl-gear-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 12px;
+}
+
+.soulslike.sheet .sl-combat-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  align-items: start;
 }
 
 .soulslike.sheet .sl-card {
