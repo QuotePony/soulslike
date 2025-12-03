@@ -2,6 +2,15 @@
 import type { SoulslikeConfig } from "../config.js";
 import type { SoulslikeActorSystemData } from "../../types/system.js";
 import { handleSheetDrop, type DropTargetDefinition } from "../dragdrop.js";
+import {
+  SHEET_KEYS,
+  captureScrollPosition,
+  createScrollState,
+  restoreScrollPosition,
+  bindScrollPersistence,
+  initializeTabs,
+  getSheetDropTargets
+} from "../api.js";
 
 const api = foundry.applications.api;
 const sheets = foundry.applications.sheets;
@@ -62,7 +71,7 @@ async function handleInventoryRemove(this: SoulslikeCharacterSheet, _event: Even
 export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   sheetContext: SoulslikeCharacterSheetContext | null = null;
   tabState = { primary: "tab-stats" };
-  scrollPosition: number | null = null;
+  private readonly scrollState = createScrollState();
   private readonly boundCaptureScroll = (): void => this._captureScrollPosition();
 
   static override DEFAULT_OPTIONS = foundry.utils.mergeObject(
@@ -130,16 +139,14 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
 
   async _onRender(context: ActorSheetRenderContext, options: ActorSheetRenderOptions): Promise<ActorSheetRenderResult> {
     const result = await super._onRender(context, options);
-    const tabs = new foundry.applications.ux.Tabs({
+    initializeTabs(this, {
       navSelector: ".tabs",
       contentSelector: ".content",
       initial: this.tabState.primary,
-      callback: (_event, tabsInstance, active) => {
-        void tabsInstance;
+      onChange: (active) => {
         this.tabState.primary = active;
       }
     });
-    tabs.bind(this.element);
 
     this._bindScrollPersistence();
     this._restoreScrollPosition();
@@ -147,7 +154,7 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
   }
 
   protected get dropTargets(): DropTargets {
-    return [
+    const baseTargets: DropTargets = [
       {
         selector: "[data-hand]",
         accepts: ["Item"],
@@ -166,27 +173,16 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
         }
       }
     ];
+    const registered = getSheetDropTargets(SHEET_KEYS.character);
+    return baseTargets.concat(registered);
   }
 
   protected _captureScrollPosition(): void {
-    const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
-    this.scrollPosition = content ? content.scrollTop : null;
+    captureScrollPosition(this, this.scrollState);
   }
 
   protected _bindScrollPersistence(): void {
-    const element = this.element;
-    if (!element) return;
-
-    element.removeEventListener("change", this.boundCaptureScroll, true);
-    element.removeEventListener("input", this.boundCaptureScroll, true);
-    element.addEventListener("change", this.boundCaptureScroll, true);
-    element.addEventListener("input", this.boundCaptureScroll, true);
-
-    const content = element.querySelector(".window-content") as HTMLElement | null;
-    if (content) {
-      content.removeEventListener("scroll", this.boundCaptureScroll);
-      content.addEventListener("scroll", this.boundCaptureScroll);
-    }
+    bindScrollPersistence(this, this.boundCaptureScroll);
   }
 
   protected async _onSubmit(event: Event, options?: ActorSheetRenderOptions): Promise<ActorSheetRenderResult> {
@@ -195,19 +191,7 @@ export default class SoulslikeCharacterSheet extends api.HandlebarsApplicationMi
   }
 
   protected _restoreScrollPosition(): void {
-    if (this.scrollPosition === null) return;
-    const target = this.scrollPosition;
-    const restore = (): void => {
-      const content = (this.element?.querySelector(".window-content") ?? null) as HTMLElement | null;
-      if (content) content.scrollTop = target;
-    };
-
-    requestAnimationFrame(() => {
-      restore();
-      requestAnimationFrame(() => restore());
-    });
-
-    this.scrollPosition = null;
+    restoreScrollPosition(this, this.scrollState);
   }
 
   protected async _onDrop(event: DragEvent): Promise<unknown> {
