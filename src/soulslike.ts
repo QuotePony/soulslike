@@ -2,6 +2,7 @@ import { SOULSLIKE } from "./modules/config.js";
 import SoulslikeActor from "./modules/objects/soulslikeActor.js";
 import SoulslikeCharacterSheet from "./modules/sheets/soulslikeCharacterSheet.js";
 import SoulslikeItemSheet from "./modules/sheets/soulslikeItemSheet.js";
+import { createSoulslikeAPI } from "./modules/api.js";
 import "./styles/soulslike.less";
 
 const { DocumentSheetConfig } = foundry.applications.apps;
@@ -13,6 +14,10 @@ Hooks.once("init", async () => {
   CONFIG.SOULSLIKE = SOULSLIKE;
   CONFIG.INIT = true;
   CONFIG.Actor.documentClass = SoulslikeActor as DocumentClassConfig["Actor"];
+
+  const systemAPI = createSoulslikeAPI();
+  CONFIG.SOULSLIKE.api = systemAPI;
+  (game.system as Game["system"] & { api?: ReturnType<typeof createSoulslikeAPI> }).api = systemAPI;
 
   DocumentSheetConfig.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
   DocumentSheetConfig.registerSheet(Item, "soulslike", SoulslikeItemSheet as unknown as DocumentSheetConstructor, {
